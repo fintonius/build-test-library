@@ -13,14 +13,52 @@
       function square(x) {
         return x * x;
       }
-
+      
+      // PART 1 - write a simple test for a specific function
+      // My solution:
       function testFunction() {
-        if (square(4) === 16) {
+        if (square(4) === 17) {
           console.log('the function works');
         } else {
           console.log('the function failed');
         }
       }
+      // FAC solution:
+      let testNumber = 5
+      const result = square(testNumber);
+      const expected = 99;
+      // if (result !== expected) {
+      //   console.log('Failed: expected square(2) to equal 4, but answer was ' + result);
+      // }
+
+      // PART 2 - Write a function called equal that takes two arguments 
+      // and checks if they’re the same. If they are it should log the success 
+      // with console.info. If they aren’t it should log the failure with console.error.
+      // My solution:
+      function equal(a,b) {
+        if (a === b) {
+          console.log(`Test passed - expected square(${testNumber}) to equal ${expected}, answer was ` + result);
+        } else {
+          console.log(`Test failed - expected square(${testNumber}) to equal ${expected}, but answer was ` + result);
+        }
+      }
+      // FAC solution:
+      function equal(actual, expected) {
+        if (actual === expected) {
+          console.info(`Pass: Expected ${expected} and received ${actual}`);
+        } else {
+          console.error(`Fail: Expected ${expected} but received ${actual} instead`);
+        }
+      }
+
+      const result1 = square(2);
+      const expected1 = 4;
+      equal(result1, expected1);
+
+      const result2 = square(3.5);
+      const expected2 = 9999; // deliberately wrong answer to cause test to fail
+      equal(result2, expected2);
+
     </script>
   </body>
 </html>
