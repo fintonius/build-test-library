@@ -26,7 +26,7 @@
       // FAC solution:
       let testNumber = 5
       const result = square(testNumber);
-      const expected = 99;
+      const expected = 25;
       // if (result !== expected) {
       //   console.log('Failed: expected square(2) to equal 4, but answer was ' + result);
       // }
@@ -43,7 +43,7 @@
         }
       }
       // FAC solution:
-      function equal(actual, expected) {
+      function equalFac(actual, expected) {
         if (actual === expected) {
           console.info(`Pass: Expected ${expected} and received ${actual}`);
         } else {
@@ -53,11 +53,96 @@
 
       const result1 = square(2);
       const expected1 = 4;
-      equal(result1, expected1);
+      // equal(result1, expected1);
 
       const result2 = square(3.5);
       const expected2 = 9999; // deliberately wrong answer to cause test to fail
-      equal(result2, expected2);
+      // equal(result2, expected2);
+
+      // PART 3 - Write a notEqual function. It should be similar to equal, 
+      // but log a failure when its two arguments are the same.
+      // My solution:
+      function notEqual(actual, expected) {
+        (actual === expected) ? console.error(`Fail: Expected ${expected} but received ${actual} instead`) : 
+          console.info(`Pass: Expected ${expected} and received ${actual}`);
+      }
+      // FAC solution
+      function notEqualFac(actual, expected) {
+        if (actual !== expected) {
+          console.info(`Pass: ${expected} is different to ${actual}`);
+        } else {
+          console.error(`Fail: ${expected} is the same as ${actual}`);
+        }
+      }
+
+      const result3 = square(3);
+      const expected3 = 10;
+      // notEqual(result3, expected3);
+
+      // PART 4 - Write a function called test that takes two arguments: a name and a testFunction. 
+      // It should use console.group to log a group labelled with the name. You’ll need console.groupEnd 
+      // to close the group at the end. 
+      // It should call the testFunction callback argument so that the actual test is run.
+      // My solution:
+      function test(name, testFunction) {
+        console.group(name);
+        testFunction(result, expected);
+        console.groupEnd();
+        
+      };
+      test('testing this syntax', notEqual);
+      // FAC solution:
+      function testFac(name, testFunction) {
+        console.group(name);
+        testFunction();
+        console.groupEnd();
+      }
+
+      test("Correctly squares integers", () => {
+        const result = square(2);
+        const expected = 4;
+        equal(result, expected);
+      });
+
+      test("Correctly squares decimals", () => {
+        const result = square(3.5);
+        const expected = 12.25;
+        equal(result, expected);
+      });
+
+      // Part 5 - Custom Messages
+      // For more complex assertions it’s nice to be able to write a custom message specific to that test.
+
+      // Amend your equal and notEqual functions so that they take a third optional message argument. 
+      // Your console.info/console.error should log this message. If there is no message passed in then 
+      // default to the message you were using before.
+
+      // FAC Solution:
+      function equal(actual, expected, message) {
+        if (actual === expected) {
+          const defaultMessage = `Expected ${expected} and received ${actual}`;
+          console.info("Pass: " + (message || defaultMessage));
+        } else {
+          const defaultMessage = `Expected ${expected} but received ${actual} instead`;
+          console.error("Fail: " + (message || defaultMessage));
+        }
+      }
+
+      function notEqual(actual, expected, message) {
+        if (actual !== expected) {
+          const defaultMessage = `${expected} is different to ${actual}`;
+          console.info("Pass: " + (message || defaultMessage));
+        } else {
+          const defaultMessage = `${expected} is the same as ${actual}`;
+          console.error("Fail: " + (message || defaultMessage));
+        }
+      }
+
+      test("Correctly squares integers", () => {
+        const result = square(2);
+        const expected = 4;
+        equal(result, expected, "square(2) should return 4");
+      });
 
     </script>
   </body>
